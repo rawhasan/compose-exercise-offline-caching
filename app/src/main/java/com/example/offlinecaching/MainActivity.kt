@@ -1,14 +1,17 @@
 package com.example.offlinecaching
 
+import android.icu.text.CaseMap
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OfflineCachingTheme {
-                Surface(color = MaterialTheme.colors.background) {
+                Surface(color = MaterialTheme.colors.primaryVariant) {
                     OfflineCachingApp()
                 }
             }
@@ -34,14 +37,26 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun OfflineCachingApp() {
-    QuakeItemLayout()
+    Column() {
+        TopAppBar {
+            Text(text = "Bangladesh Quake Report", modifier = Modifier.padding(horizontal = 16.dp))
+        }
+        LazyColumn(
+            modifier = Modifier.padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            items(10) {
+                QuakeItemLayout()
+            }
+        }
+    }
 }
 
 @Composable
 fun QuakeItemLayout() {
     Row(
         modifier = Modifier
-            .background(MaterialTheme.colors.primaryVariant)
+            .background(MaterialTheme.colors.primary)
             .padding(16.dp)
             .fillMaxWidth()
     ) {
