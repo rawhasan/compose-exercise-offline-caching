@@ -17,10 +17,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.offlinecaching.network.Feature
 import com.example.offlinecaching.network.Quake
@@ -45,19 +45,13 @@ fun OfflineCachingApp() {
     val quakes = usgsViewModel.quakes.observeAsState(Quake(listOf()))
     val quakeList = quakes.value.features
 
-    Column() {
+    Column(modifier = Modifier.background(MaterialTheme.colors.primaryVariant)) {
         TopAppBar {
-            Text(text = "Bangladesh Quake Report", modifier = Modifier.padding(horizontal = 16.dp))
+            Text(
+                text = "Bangladesh Earthquake Report",
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
         }
-
-//        Column(
-//            modifier = Modifier
-//                .padding(16.dp)
-//                .verticalScroll(rememberScrollState())
-//        ) {
-//            Text(quakeList.toString(), modifier = Modifier.fillMaxSize())
-//        }
-
 
         LazyColumn(
             modifier = Modifier.padding(8.dp),
@@ -76,42 +70,53 @@ fun QuakeItemLayout(quake: Feature) {
         modifier = Modifier
             .background(MaterialTheme.colors.primary)
             .padding(16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        // magnitude in circle
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .padding(end = 16.dp)
                 .size(55.dp)
                 .clip(CircleShape)
-                .background(Color.Red.copy(alpha = 0.7f))
+                .background(getMagColor(quake.properties.mag))
 
         ) {
             Text(
-                text = quake.properties.mag.toString(), style = MaterialTheme.typography.h5,
+                text = quake.properties.mag.toString(),
+                style = MaterialTheme.typography.h5,
                 color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f)
             )
         }
+
+        // place and distance
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "Dummy: 4 km N of", style = MaterialTheme.typography.body1,
+                text = (getPlace(quake.properties.place)[0] + " of").uppercase(),
+                style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onPrimary.copy(alpha = 0.6f)
             )
             Text(
-                text = quake.properties.place,
+                text = getPlace(quake.properties.place)[1],
                 style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f)
+                color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f),
+                fontSize = 18.sp
             )
         }
+
+        // date and time
         Column(horizontalAlignment = Alignment.End) {
             Text(
                 text = getDate(quake.properties.time),
                 color = MaterialTheme.colors.onPrimary.copy(alpha = 0.6f),
+                style = MaterialTheme.typography.body2,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = getTime(quake.properties.time),
-                color = MaterialTheme.colors.onPrimary.copy(alpha = 0.6f)
+                color = MaterialTheme.colors.onPrimary.copy(alpha = 0.6f),
+                style = MaterialTheme.typography.body2
             )
         }
     }
