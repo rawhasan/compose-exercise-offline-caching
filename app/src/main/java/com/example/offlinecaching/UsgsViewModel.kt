@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class UsgsViewModel : ViewModel() {
-    private val _quakes = MutableLiveData<List<Quake>>()
-    val quakes: LiveData<List<Quake>>
+    private val _quakes = MutableLiveData<Quake>()
+    val quakes: LiveData<Quake>
         get() = _quakes
 
     init {
@@ -24,7 +24,7 @@ class UsgsViewModel : ViewModel() {
             try {
                 _quakes.value = UsgsApi.retrofitService.getQuakes()
             } catch (e: Exception) {
-                _quakes.value = ArrayList()
+                _quakes.value = Quake(listOf())
                 Log.d("UsgsViewModel", "Error: ${e.message}")
             }
         }

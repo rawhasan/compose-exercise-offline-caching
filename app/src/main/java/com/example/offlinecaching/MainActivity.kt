@@ -5,15 +5,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.offlinecaching.network.Quake
 import com.example.offlinecaching.ui.theme.OfflineCachingTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,26 +47,32 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun OfflineCachingApp() {
     val usgsViewModel: UsgsViewModel = viewModel()
-    val quakes = usgsViewModel.quakes.observeAsState(listOf())
+    val quakes = usgsViewModel.quakes.observeAsState(Quake(listOf()))
+    val quakeList = quakes.value.features
 
     Column() {
         TopAppBar {
             Text(text = "Bangladesh Quake Report", modifier = Modifier.padding(horizontal = 16.dp))
         }
 
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(quakes.value.size.toString(), modifier = Modifier.fillMaxSize())
-        }
-
-
-//        LazyColumn(
-//            modifier = Modifier.padding(8.dp),
-//            verticalArrangement = Arrangement.spacedBy(4.dp)
+//        Column(
+//            modifier = Modifier
+//                .padding(16.dp)
+//                .verticalScroll(rememberScrollState())
 //        ) {
-//            items(10) {
-//                QuakeItemLayout()
-//            }
+//            Text(quakeList.toString(), modifier = Modifier.fillMaxSize())
 //        }
+
+
+        LazyColumn(
+            modifier = Modifier.padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            items(quakeList) { quake ->
+                //QuakeItemLayout()
+                Text(quake.properties.place)
+            }
+        }
     }
 }
 

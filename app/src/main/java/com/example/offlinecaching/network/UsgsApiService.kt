@@ -31,7 +31,7 @@ interface UsgsApiService {
         @Query("latitude") latitude: String = "24.0162182",
         @Query("longitude") longitude: String = "90.6402874",
         @Query("maxradiuskm") maxradiuskm: String = "400"
-    ): List<Quake>
+    ): Quake
 }
 
 object UsgsApi {
