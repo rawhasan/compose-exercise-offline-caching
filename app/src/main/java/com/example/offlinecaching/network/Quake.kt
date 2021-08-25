@@ -12,11 +12,11 @@ data class Quake(
 @JsonClass(generateAdapter = true)
 data class Feature(
     @Json(name = "id")
-    val id: String?,
+    val id: String,
     @Json(name = "properties")
-    val properties: Properties?,
+    val properties: Properties,
     @Json(name = "geometry")
-    val geometry: Geometry?
+    val geometry: Geometry
 )
 
 @JsonClass(generateAdapter = true)
@@ -24,15 +24,15 @@ data class Properties(
     @Json(name = "mag")
     val mag: Double?,
     @Json(name = "place")
-    val place: String?,
+    val place: String,
     @Json(name = "time")
-    val time: Long?,
+    val time: Long,
     @Json(name = "url")
-    val url: String?
+    val url: String
 )
 
 @JsonClass(generateAdapter = true)
 data class Geometry(
     @Json(name = "coordinates")
-    val coordinates: List<Double>?
+    val coordinates: List<Double>
 )

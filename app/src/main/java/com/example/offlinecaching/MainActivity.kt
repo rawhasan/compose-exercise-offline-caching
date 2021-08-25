@@ -13,6 +13,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.offlinecaching.ui.theme.OfflineCachingTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,18 +39,27 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun OfflineCachingApp() {
+    val usgsViewModel: UsgsViewModel = viewModel()
+    val quakes = usgsViewModel.quakes.observeAsState(listOf())
+
     Column() {
         TopAppBar {
             Text(text = "Bangladesh Quake Report", modifier = Modifier.padding(horizontal = 16.dp))
         }
-        LazyColumn(
-            modifier = Modifier.padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            items(10) {
-                QuakeItemLayout()
-            }
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(quakes.value.size.toString(), modifier = Modifier.fillMaxSize())
         }
+
+
+//        LazyColumn(
+//            modifier = Modifier.padding(8.dp),
+//            verticalArrangement = Arrangement.spacedBy(4.dp)
+//        ) {
+//            items(10) {
+//                QuakeItemLayout()
+//            }
+//        }
     }
 }
 
