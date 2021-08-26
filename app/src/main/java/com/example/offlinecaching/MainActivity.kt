@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.offlinecaching.network.Feature
-import com.example.offlinecaching.network.Quake
+import com.example.offlinecaching.network.NetworkQuake
 import com.example.offlinecaching.ui.theme.OfflineCachingTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,7 +31,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OfflineCachingTheme {
-                Surface(color = MaterialTheme.colors.primaryVariant) {
+                Surface(
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     OfflineCachingApp()
                 }
             }
@@ -42,7 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun OfflineCachingApp() {
     val usgsViewModel: UsgsViewModel = viewModel()
-    val quakes = usgsViewModel.quakes.observeAsState(Quake(listOf()))
+    val quakes = usgsViewModel.quakes.observeAsState(NetworkQuake(listOf()))
     val quakeList = quakes.value.features
 
     Column(modifier = Modifier.background(MaterialTheme.colors.primaryVariant)) {

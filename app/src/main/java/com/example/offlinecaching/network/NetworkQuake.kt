@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 
 @JsonClass(generateAdapter = true)
-data class Quake(
+data class NetworkQuake(
     @Json(name = "features")
     val features: List<Feature>
 )

@@ -26,12 +26,12 @@ interface UsgsApiService {
     suspend fun getQuakes(
         @Query("format") format: String = "geojson",
         @Query("starttime") starttime: String = "2021-01-01",
-        @Query("endtime") endtime: String = "2021-08-24",
+        @Query("endtime") endtime: String = "2021-08-26",
         @Query("minmagnitude") minmagnitude: String = "4",
         @Query("latitude") latitude: String = "24.0162182",
         @Query("longitude") longitude: String = "90.6402874",
         @Query("maxradiuskm") maxradiuskm: String = "400"
-    ): Quake
+    ): NetworkQuake
 }
 
 object UsgsApi {
