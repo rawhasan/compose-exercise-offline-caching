@@ -2,7 +2,6 @@ package com.example.offlinecaching.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
 
 @Entity(tableName = "quake_table")
 data class DatabaseQuake(

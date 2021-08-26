@@ -1,6 +1,7 @@
 # Compose Exercise: Offline Caching
 - Fetch data from API using the Retrofit library.
 - Convert JSON data to Kotlin objects using the Moshi library.
+- Cache all data from API to local database and display from there.
 - Date/Time formatting from Unix Epoch (Util.kt).
 - Splitting string to a list of different parts (Util.kt).
 - Generating background color conditionally (Util.kt).

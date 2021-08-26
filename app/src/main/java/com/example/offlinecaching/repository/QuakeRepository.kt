@@ -9,14 +9,14 @@ import com.example.offlinecaching.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class QuakeRepository(private val quakeDao: QuakeDao) {
 
     val quakes: Flow<List<DatabaseQuake>> = quakeDao.getQuakes()
 
+    // fetch the latest data from the API, empty database, and insert all to the database
     suspend fun refreshQuakes() {
-        var quakeList: NetworkQuake = NetworkQuake(listOf())
+        var quakeList = NetworkQuake(listOf())
 
         withContext(Dispatchers.IO) {
             try {
