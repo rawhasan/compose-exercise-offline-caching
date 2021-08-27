@@ -1,9 +1,11 @@
 package com.example.offlinecaching
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,6 +30,7 @@ import com.example.offlinecaching.viewmodel.QuakeViewModel
 import com.example.offlinecaching.viewmodel.QuakeViewModelFactory
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +51,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
     val quakes: List<DatabaseQuake> by quakeViewModel.quakes.observeAsState(listOf())

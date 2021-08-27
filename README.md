@@ -5,6 +5,7 @@
 - Date/Time formatting from Unix Epoch (Util.kt).
 - Splitting string to a list of different parts (Util.kt).
 - Generating background color conditionally (Util.kt).
+- Subtract 1 year from today.
 
 ## Dependencies
 ```
