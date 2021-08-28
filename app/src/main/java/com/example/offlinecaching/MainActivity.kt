@@ -38,6 +38,9 @@ class MainActivity : ComponentActivity() {
             QuakeViewModelFactory((application as QuakeApplication).repository)
         }
 
+        // replace splash screen theme with the app theme
+        setTheme(R.style.Theme_OfflineCaching_NoActionBar)
+
         setContent {
             OfflineCachingTheme {
                 Surface(

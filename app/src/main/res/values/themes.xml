@@ -25,4 +25,10 @@
     <style name="Theme.OfflineCaching.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OfflineCaching.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Splash screen theme -->
+    <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="statusBarBackground">@color/purple_700</item>
+    </style>
 </resources>
