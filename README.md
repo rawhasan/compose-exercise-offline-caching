@@ -6,6 +6,8 @@
 - Splitting string to a list of different parts (Util.kt).
 - Generating background color conditionally (Util.kt).
 - Subtract 1 year from today.
+- Window background (avoid showing the white screen flickering during app loading).
+- Splash screen.
 
 ## Dependencies
 ```

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/compose-exercises/compose-exercise-offline-caching/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2222222222222222" />
+        <entry key="..\:/compose-exercises/compose-exercise-offline-caching/app/src/main/res/drawable-v24/loading_img.xml" value="0.2222222222222222" />
         <entry key="..\:/compose-exercises/compose-exercise-offline-caching/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2222222222222222" />
         <entry key="..\:/compose-exercises/compose-exercise-offline-caching/app/src/main/res/drawable/splash_screen.xml" value="0.2222222222222222" />
       </map>
