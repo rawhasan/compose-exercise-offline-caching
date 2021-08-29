@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/purple_700" />
 
     <item
         android:drawable="@drawable/ic_launcher_foreground"
+        android:gravity="center|top"
+        android:top="200dp" />
+
+    <item
+        android:width="300dp"
+        android:height="150dp"
+        android:bottom="160dp"
+        android:drawable="@drawable/ic_bangladesh_quake_report"
         android:gravity="center" />
 
     <item
         android:width="300dp"
         android:height="300dp"
+        android:bottom="80dp"
         android:drawable="@drawable/loading_animation"
-        android:gravity="bottom" />
+        android:gravity="center|bottom" />
 </layer-list>
