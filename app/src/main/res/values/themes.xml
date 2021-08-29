@@ -29,6 +29,6 @@
     <!-- Splash screen theme -->
     <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="statusBarBackground">@color/purple_700</item>
+        <item name="statusBarBackground">@color/purple_500</item>
     </style>
 </resources>
