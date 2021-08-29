@@ -33,7 +33,21 @@ interface UsgsApiService {
         @Query("minmagnitude") minmagnitude: String = "4",
         @Query("latitude") latitude: String = "24.0162182",
         @Query("longitude") longitude: String = "90.6402874",
-        @Query("maxradiuskm") maxradiuskm: String = "400"
+        @Query("maxradiuskm") maxradiuskm: String = "400",
+        @Query("orderby") orderby: String = "time",
+    ): NetworkQuake
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @GET("fdsnws/event/1/query")
+    suspend fun getLatestQuake(
+        @Query("format") format: String = "geojson",
+        @Query("starttime") starttime: String = LocalDate.now().minusYears(1).toString(), // subtract 1 year from today
+        @Query("minmagnitude") minmagnitude: String = "4",
+        @Query("latitude") latitude: String = "24.0162182",
+        @Query("longitude") longitude: String = "90.6402874",
+        @Query("maxradiuskm") maxradiuskm: String = "400",
+        @Query("orderby") orderby: String = "time",
+        @Query("limit") limit: String = "1"
     ): NetworkQuake
 }
 

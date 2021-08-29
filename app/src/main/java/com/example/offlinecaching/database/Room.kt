@@ -10,6 +10,9 @@ interface QuakeDao {
     @Query("SELECT * FROM quake_table")
     fun getQuakes(): Flow<List<DatabaseQuake>>
 
+    @Query("SELECT * FROM quake_table LIMIT 1")
+    fun getLatestQuake(): Flow<DatabaseQuake>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(quakes: List<DatabaseQuake>)
 
