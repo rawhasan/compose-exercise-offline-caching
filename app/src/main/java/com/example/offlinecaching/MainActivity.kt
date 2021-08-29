@@ -21,6 +21,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,7 +60,7 @@ class MainActivity : ComponentActivity() {
 fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
     val quakes: List<DatabaseQuake> by quakeViewModel.quakes.observeAsState(listOf())
 
-    Column(modifier = Modifier.background(MaterialTheme.colors.primaryVariant)) {
+    Column() {
         TopAppBar {
             Text(
                 text = "Bangladesh Earthquake Report",
@@ -68,12 +69,29 @@ fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
         }
 
         LazyColumn(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier
+                .padding(8.dp)
+                .weight(1f),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             items(quakes) { quake ->
                 QuakeItemLayout(quake)
             }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.primaryVariant)
+                .padding(bottom = 12.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "${quakes.size} Earthquakes in 400 km radius from Dhaka last year",
+                fontSize = 12.sp,
+                color = Color.White.copy(alpha = 0.65f)
+            )
         }
     }
 }
@@ -82,19 +100,19 @@ fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
 fun QuakeItemLayout(quake: DatabaseQuake) {
     Row(
         modifier = Modifier
-                .background(MaterialTheme.colors.primary)
-                .padding(16.dp)
-                .fillMaxWidth(),
+            .background(MaterialTheme.colors.primary)
+            .padding(16.dp)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // magnitude in circle
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                    .padding(end = 16.dp)
-                    .size(55.dp)
-                    .clip(CircleShape)
-                    .background(getMagColor(quake.mag))
+                .padding(end = 16.dp)
+                .size(55.dp)
+                .clip(CircleShape)
+                .background(getMagColor(quake.mag))
 
         ) {
             Text(
