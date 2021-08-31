@@ -68,6 +68,7 @@ fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
             )
         }
 
+        // TODO: Show feedback while database is empty
         LazyColumn(
             modifier = Modifier
                 .padding(8.dp)

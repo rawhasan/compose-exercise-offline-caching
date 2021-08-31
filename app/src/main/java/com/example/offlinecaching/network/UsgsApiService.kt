@@ -24,6 +24,7 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
+// TODO: Replace LocalDate with old way. App crashes on older phones.
 interface UsgsApiService {
     @RequiresApi(Build.VERSION_CODES.O)
     @GET("fdsnws/event/1/query")

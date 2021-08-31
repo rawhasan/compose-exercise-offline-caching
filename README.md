@@ -3,12 +3,13 @@ This project demonstrates the offline caching of REST API data in the local data
 
 Data is filtered to show only the earthquakes of 4 magnitudes or higher, with a 400 km radius from the Bangladeshi capital Dhaka, in the past 12 months. 
 
-Every time the app is opened, it checks for any new earthquake data on the server that is more recent than locally stored. If any new data is found, it fetches all the data, deletes everything from the database, and stores the latest data for displaying.
+Every time the app is opened, it checks for any new earthquake data on the server that is more recent than locally stored. If any new data is found, it fetches all the data, deletes everything from the database, and stores the latest data for displaying. Also sync data once in a day by running a background work using WorkManager.
 
 ## Takeaways
 - Fetch data from API using the Retrofit library.
 - Convert JSON data to Kotlin objects using the Moshi library.
 - Cache all data from API to local database and display from there.
+- Sync data once in a day by running background work using WorkManager.
 - Date/Time formatting from Unix Epoch (Util.kt).
 - Splitting string to a list of different parts (Util.kt).
 - Generating background color conditionally (Util.kt).
@@ -54,6 +55,15 @@ implementation "androidx.room:room-ktx:$room_version"
 
 // LiveData (Flow to LiveData: asLiveData)
 implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+
+// WorkManager - Kotlin + coroutines
+implementation("androidx.work:work-runtime-ktx:2.5.0")
+
+// WorkManager - Test helpers (Optional)
+androidTestImplementation("androidx.work:work-testing:2.5.0")
+
+// WorkManager - Multiprocess support (Optional)
+implementation "androidx.work:work-multiprocess:2.5.0"
 ```
 <br />
 
