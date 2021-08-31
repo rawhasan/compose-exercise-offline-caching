@@ -1,9 +1,7 @@
 package com.example.offlinecaching
 
 import android.app.Application
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import com.example.offlinecaching.database.QuakeRoomDatabase
 import com.example.offlinecaching.repository.QuakeRepository
 import com.example.offlinecaching.work.RefreshDataWorker
@@ -37,17 +35,25 @@ class QuakeApplication : Application() {
      * Setup WorkManager background job to 'fetch' new network data daily.
      */
     private fun setupRecurringWork() {
-        val repeatingRequest =
-            PeriodicWorkRequestBuilder<RefreshDataWorker>(1, TimeUnit.DAYS)
-                .build()
 
-        /**
-         * Test code to run the background work in every 15 minuites
-         * Wipe emulator data before activating
-         */
-//        val repeatingRequest =
-//            PeriodicWorkRequestBuilder<RefreshDataWorker>(15, TimeUnit.MINUTES)
-//                .build()
+        // run the background work only in wi-fi & broadband
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .setRequiresBatteryNotLow(true) // run only when the battery is not low
+            //.setRequiresCharging(true) // run only when the phone is in charging
+//            .apply {
+//                // works only in version 23 (Android 6 Marshmallow) or higher
+//                // so check version of the device OS before running
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    setRequiresDeviceIdle(true) // run only if the device is idle
+//                }
+//            }
+            .build()
+
+        val repeatingRequest =
+            PeriodicWorkRequestBuilder<RefreshDataWorker>(15, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             RefreshDataWorker.WORK_NAME,
