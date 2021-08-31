@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,12 +26,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.offlinecaching.database.DatabaseQuake
 import com.example.offlinecaching.ui.theme.OfflineCachingTheme
 import com.example.offlinecaching.viewmodel.QuakeViewModel
 import com.example.offlinecaching.viewmodel.QuakeViewModelFactory
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalCoilApi
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,12 +59,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalCoilApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
     val quakes: List<DatabaseQuake> by quakeViewModel.quakes.observeAsState(listOf())
+    val status = quakeViewModel.status
 
-    Column() {
+    Column {
         TopAppBar {
             Text(
                 text = "Bangladesh Earthquake Report",
@@ -68,15 +74,35 @@ fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
             )
         }
 
-        // TODO: Show feedback while database is empty
+        // FIXME: Image vertical alignment, show feedback based on status
+        // Show a loading animation while database is empty
         LazyColumn(
             modifier = Modifier
                 .padding(8.dp)
                 .weight(1f),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            items(quakes) { quake ->
-                QuakeItemLayout(quake)
+            if (quakes.isEmpty()) {
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+
+                        Image(
+                            painter = rememberImagePainter(data = R.drawable.loading_animation),
+                            contentDescription = null,
+                            modifier = Modifier.size(300.dp)
+                        )
+                    }
+                }
+            } else {
+                items(quakes) { quake ->
+                    QuakeItemLayout(quake)
+                }
             }
         }
 
@@ -96,6 +122,7 @@ fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
         }
     }
 }
+
 
 @Composable
 fun QuakeItemLayout(quake: DatabaseQuake) {

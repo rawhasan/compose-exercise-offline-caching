@@ -33,10 +33,12 @@ class QuakeRepository(private val quakeDao: QuakeDao) {
 
                 if (quakeLatestDatabase == null ||
                     (quakeLatestNetwork[0].date != quakeLatestDatabase.date
-                    && quakeLatestNetwork[0].time != quakeLatestDatabase.time)
+                            && quakeLatestNetwork[0].time != quakeLatestDatabase.time)
                 ) {
                     Log.d("QuakeRepository", "Data updated")
+
                     quakeList = UsgsApi.retrofitService.getQuakes()
+
                     quakeDao.deleteAll()
                     quakeDao.insertAll(quakeList.asDatabaseModel())
                 } else

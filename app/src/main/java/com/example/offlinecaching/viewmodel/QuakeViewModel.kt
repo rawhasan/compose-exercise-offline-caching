@@ -7,9 +7,15 @@ import com.example.offlinecaching.database.DatabaseQuake
 import com.example.offlinecaching.repository.QuakeRepository
 import kotlinx.coroutines.launch
 
+enum class UsgsApiStatus { LOADING, ERROR, DONE }
+
 @RequiresApi(Build.VERSION_CODES.O)
 class QuakeViewModel(private val repository: QuakeRepository) : ViewModel() {
     val quakes: LiveData<List<DatabaseQuake>> = repository.quakes.asLiveData()
+
+    private var _status = MutableLiveData<UsgsApiStatus>(UsgsApiStatus.LOADING)
+    val status: LiveData<UsgsApiStatus>
+        get() = _status
 
     init {
         refreshQuakes()
@@ -17,8 +23,15 @@ class QuakeViewModel(private val repository: QuakeRepository) : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun refreshQuakes() {
-        viewModelScope.launch {
-            repository.refreshQuakes()
+        _status.value = UsgsApiStatus.LOADING
+
+        try {
+            viewModelScope.launch {
+                repository.refreshQuakes()
+            }
+            _status.value = UsgsApiStatus.DONE
+        } catch (e: Exception) {
+            _status.value = UsgsApiStatus.ERROR
         }
     }
 }
