@@ -5,7 +5,7 @@ Data is filtered to show only the earthquakes of 4 magnitudes or higher, with a 
 
 Every time the app is opened, it checks for any new earthquake data on the server that is more recent than locally stored. If any new data is found, it fetches all the data, deletes everything from the database, and stores the latest data for displaying.
 
-## Takeways
+## Takeaways
 - Fetch data from API using the Retrofit library.
 - Convert JSON data to Kotlin objects using the Moshi library.
 - Cache all data from API to local database and display from there.

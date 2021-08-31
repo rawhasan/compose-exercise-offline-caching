@@ -31,8 +31,9 @@ class QuakeRepository(private val quakeDao: QuakeDao) {
                 Log.d("QuakeRepository", "Network latest: $quakeLatestNetwork")
                 Log.d("QuakeRepository", "Database latest: $quakeLatestDatabase")
 
-                if (quakeLatestNetwork[0].date != quakeLatestDatabase.date
-                    && quakeLatestNetwork[0].time != quakeLatestDatabase.time
+                if (quakeLatestDatabase == null ||
+                    (quakeLatestNetwork[0].date != quakeLatestDatabase.date
+                    && quakeLatestNetwork[0].time != quakeLatestDatabase.time)
                 ) {
                     Log.d("QuakeRepository", "Data updated")
                     quakeList = UsgsApi.retrofitService.getQuakes()

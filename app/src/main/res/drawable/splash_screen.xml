@@ -19,6 +19,11 @@
         android:width="300dp"
         android:height="300dp"
         android:bottom="80dp"
-        android:drawable="@drawable/loading_animation"
-        android:gravity="center|bottom" />
+        android:gravity="center|bottom">
+
+        <animated-rotate
+            android:drawable="@drawable/loading_img"
+            android:pivotX="50%"
+            android:pivotY="50%" />
+    </item>
 </layer-list>
