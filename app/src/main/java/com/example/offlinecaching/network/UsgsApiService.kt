@@ -1,7 +1,5 @@
 package com.example.offlinecaching.network
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -26,7 +24,6 @@ private val retrofit = Retrofit.Builder()
 
 // TODO: Replace LocalDate with old way. App crashes on older phones.
 interface UsgsApiService {
-    @RequiresApi(Build.VERSION_CODES.O)
     @GET("fdsnws/event/1/query")
     suspend fun getQuakes(
         @Query("format") format: String = "geojson",
@@ -38,7 +35,6 @@ interface UsgsApiService {
         @Query("orderby") orderby: String = "time",
     ): NetworkQuake
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @GET("fdsnws/event/1/query")
     suspend fun getLatestQuake(
         @Query("format") format: String = "geojson",

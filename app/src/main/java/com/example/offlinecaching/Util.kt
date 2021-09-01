@@ -1,21 +1,33 @@
 package com.example.offlinecaching
 
 import androidx.compose.ui.graphics.Color
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 // returns date from Unix Epoch
 fun getDate(unixTime: Long): String {
-    val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-    val date = Date(unixTime)
-    return dateFormat.format(date) // date formatting
+
+    val formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
+
+    val newDate = Instant.ofEpochMilli(unixTime)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+        .format(formatter)
+
+    return newDate
 }
 
 // returns time from Unix Epoch
 fun getTime(unixTime: Long): String {
-    val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
-    val date = Date(unixTime)
-    return timeFormat.format(date) // time formatting
+    val formatter = DateTimeFormatter.ofPattern("h:m a")
+
+    val newTime = Instant.ofEpochMilli(unixTime)
+        .atZone(ZoneId.systemDefault())
+        .toLocalTime()
+        .format(formatter)
+
+    return newTime
 }
 
 // split the name of the area and the distance from the center

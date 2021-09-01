@@ -1,9 +1,7 @@
 package com.example.offlinecaching.work
 
 import android.content.Context
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.offlinecaching.database.QuakeRoomDatabase.Companion.getDatabase
@@ -17,7 +15,6 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
         const val WORK_NAME = "com.example.offlinecaching.work.RefreshDataWorker"
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun doWork(): Result {
         val database = getDatabase(applicationContext)
         val repository = QuakeRepository(database.quakeDao())

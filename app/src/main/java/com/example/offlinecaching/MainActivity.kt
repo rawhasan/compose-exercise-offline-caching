@@ -1,11 +1,9 @@
 package com.example.offlinecaching
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.offlinecaching.database.DatabaseQuake
 import com.example.offlinecaching.ui.theme.OfflineCachingTheme
@@ -34,8 +31,6 @@ import com.example.offlinecaching.viewmodel.QuakeViewModel
 import com.example.offlinecaching.viewmodel.QuakeViewModelFactory
 
 class MainActivity : ComponentActivity() {
-    @ExperimentalCoilApi
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,8 +54,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalCoilApi
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun OfflineCachingApp(quakeViewModel: QuakeViewModel) {
     val quakes: List<DatabaseQuake> by quakeViewModel.quakes.observeAsState(listOf())

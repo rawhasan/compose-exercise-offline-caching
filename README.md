@@ -11,6 +11,7 @@ Every time the app is opened, it checks for any new earthquake data on the serve
 - Cache all data from API to local database and display from there.
 - Sync data once in a day by running background work using WorkManager.
 - Date/Time formatting from Unix Epoch (Util.kt).
+- Support `java.time` API (26+) in legacy projects (21).
 - Splitting string to a list of different parts (Util.kt).
 - Generating background color conditionally (Util.kt).
 - Subtract 1 year from today.

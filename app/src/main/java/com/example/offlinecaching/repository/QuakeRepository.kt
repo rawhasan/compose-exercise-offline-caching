@@ -1,8 +1,6 @@
 package com.example.offlinecaching.repository
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.example.offlinecaching.database.DatabaseQuake
 import com.example.offlinecaching.database.QuakeDao
 import com.example.offlinecaching.network.NetworkQuake
@@ -19,7 +17,6 @@ class QuakeRepository(private val quakeDao: QuakeDao) {
 
     // update database only if the latest quake date amd time is not the same sa the database
     // fetch the latest data from the API, empty database, and insert all to the database if new data
-    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun refreshQuakes() {
         var quakeList = NetworkQuake(listOf())
 
