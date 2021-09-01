@@ -22,12 +22,12 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-// TODO: Replace LocalDate with old way. App crashes on older phones.
 interface UsgsApiService {
     @GET("fdsnws/event/1/query")
     suspend fun getQuakes(
         @Query("format") format: String = "geojson",
-        @Query("starttime") starttime: String = LocalDate.now().minusYears(1).toString(), // subtract 1 year from today
+        @Query("starttime") starttime: String = LocalDate.now().minusYears(1)
+            .toString(), // subtract 1 year from today
         @Query("minmagnitude") minmagnitude: String = "4",
         @Query("latitude") latitude: String = "24.0162182",
         @Query("longitude") longitude: String = "90.6402874",
@@ -38,7 +38,8 @@ interface UsgsApiService {
     @GET("fdsnws/event/1/query")
     suspend fun getLatestQuake(
         @Query("format") format: String = "geojson",
-        @Query("starttime") starttime: String = LocalDate.now().minusYears(1).toString(), // subtract 1 year from today
+        @Query("starttime") starttime: String = LocalDate.now().minusYears(1)
+            .toString(), // subtract 1 year from today
         @Query("minmagnitude") minmagnitude: String = "4",
         @Query("latitude") latitude: String = "24.0162182",
         @Query("longitude") longitude: String = "90.6402874",

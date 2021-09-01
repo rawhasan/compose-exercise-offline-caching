@@ -10,24 +10,20 @@ fun getDate(unixTime: Long): String {
 
     val formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
 
-    val newDate = Instant.ofEpochMilli(unixTime)
+    return Instant.ofEpochMilli(unixTime)
         .atZone(ZoneId.systemDefault())
         .toLocalDate()
         .format(formatter)
-
-    return newDate
 }
 
 // returns time from Unix Epoch
 fun getTime(unixTime: Long): String {
     val formatter = DateTimeFormatter.ofPattern("h:m a")
 
-    val newTime = Instant.ofEpochMilli(unixTime)
+    return Instant.ofEpochMilli(unixTime)
         .atZone(ZoneId.systemDefault())
         .toLocalTime()
         .format(formatter)
-
-    return newTime
 }
 
 // split the name of the area and the distance from the center
