@@ -28,6 +28,13 @@ plugins {
 ```
 
 ```
+compileOptions {
+    // Flag to enable support for the new language APIs (java.time)
+    coreLibraryDesugaringEnabled true
+    ...
+```
+
+```
 // Moshi
 implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
 
@@ -65,6 +72,9 @@ androidTestImplementation("androidx.work:work-testing:2.5.0")
 
 // WorkManager - Multiprocess support (Optional)
 implementation "androidx.work:work-multiprocess:2.5.0"
+
+// enable support for the new language APIs (Java.Time)
+coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 ```
 <br />
 
