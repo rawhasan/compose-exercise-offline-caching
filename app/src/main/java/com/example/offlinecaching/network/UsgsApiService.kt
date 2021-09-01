@@ -22,6 +22,7 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
+// Expected date format: 2021-09-01 (Tested - OK)
 interface UsgsApiService {
     @GET("fdsnws/event/1/query")
     suspend fun getQuakes(
